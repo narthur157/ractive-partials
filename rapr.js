@@ -4,7 +4,7 @@ import Ractive from 'ractive';
 let findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
 export function load(moduleName, require, done) {
-  require(`text!${moduleName}`, (text) {
+  require(`text!${moduleName}`, (text) => {
 
     let toGet = [];
 
@@ -27,7 +27,7 @@ export function load(moduleName, require, done) {
 
     if (toGet.length) {
       require(toGet.map(
-        partial => partial.path;
+        partial => partial.path
       ), function(...parsed) {
         toGet.forEach((partial, i) => Ractive.partials[partial.safeKey] = parsed[i]);
         done(compiled);
