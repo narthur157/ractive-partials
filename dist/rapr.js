@@ -18,7 +18,8 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
   var findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
   function load(moduleName, require, done) {
-    require(['text!' + moduleName], function (text) {
+
+    require(['text!' + moduleName + '.mustache'], function (text) {
 
       var toGet = [];
 
