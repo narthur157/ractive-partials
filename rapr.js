@@ -1,13 +1,11 @@
 import Ractive from 'ractive';
-
+import text from 'text';
+import module from 'module';
 // Finds all '{{> partialName }}' in the template
 let findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
 export function load(moduleName, require, done) {
-  var requireMod = [];
-  requireMod.push(`text!${moduleName}`);
-  // TODO: Why was [`text!${moduleName}`] not producing an array? (babel is suspect)
-  require(requireMod, (text) => {
+  text.get(moduleName, (text) => {
 
     let toGet = [];
 
@@ -29,10 +27,10 @@ export function load(moduleName, require, done) {
     let compiled = Ractive.parse(repartial);
     if (toGet.length) {
       require(toGet.map(
-        partial => `text!${partial.path}`
+        partial => `${module.id}!${partial.path}`
       ), function(...parsed) {
         toGet.forEach((partial, i) => {
-          Ractive.partials[partial.safeKey] = Ractive.parse(parsed[i]);
+          Ractive.partials[partial.safeKey] = parsed[i];
           console.log(partial);
         });
         done(compiled);

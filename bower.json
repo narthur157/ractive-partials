@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "main": "rapr.js",
   "dependencies": {
-    "ractive": "0.7.3"
+    "ractive": "0.7.3",
+    "requirejs": "latest",
+    "requirejs-babel": "latest",
+    "text": "latest",
+    "module": "latest"
   }
 }

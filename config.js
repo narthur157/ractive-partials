@@ -7,6 +7,7 @@ require.config({
     ractive: 'ractive/ractive',
     rapr: '../dist/rapr',
     text: 'text/text',
-    templates: '../tests/templates'
+    templates: '../tests/templates',
+    module: 'module/module'
   }
 });

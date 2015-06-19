@@ -1,4 +1,4 @@
-define(['exports', 'ractive'], function (exports, _ractive) {
+define(['exports', 'ractive', 'text', 'module'], function (exports, _ractive, _text, _module2) {
   'use strict';
 
   Object.defineProperty(exports, '__esModule', {
@@ -10,14 +10,15 @@ define(['exports', 'ractive'], function (exports, _ractive) {
 
   var _Ractive = _interopRequireDefault(_ractive);
 
+  var _text2 = _interopRequireDefault(_text);
+
+  var _module3 = _interopRequireDefault(_module2);
+
   // Finds all '{{> partialName }}' in the template
   var findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
   function load(moduleName, require, done) {
-    var requireMod = [];
-    requireMod.push('text!' + moduleName);
-    // TODO: Why was [`text!${moduleName}`] not producing an array? (babel is suspect)
-    require(requireMod, function (text) {
+    _text2['default'].get(moduleName, function (text) {
 
       var toGet = [];
 
@@ -39,14 +40,14 @@ define(['exports', 'ractive'], function (exports, _ractive) {
       var compiled = _Ractive['default'].parse(repartial);
       if (toGet.length) {
         require(toGet.map(function (partial) {
-          return 'text!' + partial.path;
+          return '' + _module3['default'].id + '!' + partial.path;
         }), function () {
           for (var _len = arguments.length, parsed = Array(_len), _key = 0; _key < _len; _key++) {
             parsed[_key] = arguments[_key];
           }
 
           toGet.forEach(function (partial, i) {
-            _Ractive['default'].partials[partial.safeKey] = _Ractive['default'].parse(parsed[i]);
+            _Ractive['default'].partials[partial.safeKey] = parsed[i];
             console.log(partial);
           });
           done(compiled);
