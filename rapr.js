@@ -4,13 +4,16 @@ import Ractive from 'ractive';
 let findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
 export function load(moduleName, require, done) {
-  require(`text!${moduleName}`, (text) => {
+  var requireMod = [];
+  requireMod.push(`text!${moduleName}`);
+  // TODO: Why was [`text!${moduleName}`] not producing an array? (babel is suspect)
+  require(requireMod, (text) => {
 
     let toGet = [];
 
     let repartial = text.replace(findPartial, function(match, partial) {
       // replace slash with $
-      var safePartialKey = partial.replace(/\//g, '$');
+      var safePartialKey = partial.replace(/\/|\./g, '$');
 
       // remember to grab partial
       if (~partial.indexOf('/')) {
@@ -24,12 +27,14 @@ export function load(moduleName, require, done) {
     });
 
     let compiled = Ractive.parse(repartial);
-
     if (toGet.length) {
       require(toGet.map(
-        partial => partial.path
+        partial => `text!${partial.path}`
       ), function(...parsed) {
-        toGet.forEach((partial, i) => Ractive.partials[partial.safeKey] = parsed[i]);
+        toGet.forEach((partial, i) => {
+          Ractive.partials[partial.safeKey] = Ractive.parse(parsed[i]);
+          console.log(partial);
+        });
         done(compiled);
       });
     }
