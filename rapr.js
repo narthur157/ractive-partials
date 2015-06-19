@@ -1,11 +1,12 @@
 import Ractive from 'ractive';
-import text from 'text';
+import text from './text';
 import module from 'module';
 // Finds all '{{> partialName }}' in the template
 let findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
 export function load(moduleName, require, done) {
-  text.get(moduleName, (text) => {
+
+  require([`text!${moduleName}`], (text) => {
 
     let toGet = [];
 

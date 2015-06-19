@@ -1,4 +1,4 @@
-define(['exports', 'ractive', 'text', 'module'], function (exports, _ractive, _text, _module2) {
+define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, _text, _module2) {
   'use strict';
 
   Object.defineProperty(exports, '__esModule', {
@@ -18,7 +18,7 @@ define(['exports', 'ractive', 'text', 'module'], function (exports, _ractive, _t
   var findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
   function load(moduleName, require, done) {
-    _text2['default'].get(moduleName, function (text) {
+    require(['text!' + moduleName], function (text) {
 
       var toGet = [];
 
