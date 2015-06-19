@@ -1,6 +1,6 @@
 {
   "name": "text",
-  "version": "0.0.1",
+  "version": "0.1.4",
   "main": "rapr.js",
   "dependencies": {
     "ractive": "0.7.3",
@@ -8,5 +8,8 @@
     "requirejs-babel": "latest",
     "text": "latest",
     "module": "latest"
-  }
+  },
+  "ignore": [
+    "/tests/",
+  ]
 }

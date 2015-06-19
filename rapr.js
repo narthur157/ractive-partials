@@ -6,7 +6,7 @@ let findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
 export function load(moduleName, require, done) {
 
-  require([`text!${moduleName}`], (text) => {
+  require([`text!${moduleName}.mustache`], (text) => {
 
     let toGet = [];
 
