@@ -13,13 +13,13 @@ export function load(moduleName, require, done) {
 
     let repartial = text.replace(findPartial, function(match, partial) {
       // replace slash with $
-      var safePartialKey = partial.replace(/\/|\./g, '$');
+      var safePartialKey = partial.replace(/\//g, '$');
 
       // remember to grab partial
       if (~partial.indexOf('/')) {
         toGet.push({
           safeKey: safePartialKey,
-          path: partial
+          path: `${partial}.mustache`
         });
       }
 
