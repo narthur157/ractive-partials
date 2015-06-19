@@ -1,6 +1,6 @@
 {
   "name": "text",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "main": "rapr.js",
   "dependencies": {
     "ractive": "0.7.3",

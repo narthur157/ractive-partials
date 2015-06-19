@@ -18,7 +18,7 @@ export function load(moduleName, require, done) {
       if (~partial.indexOf('/')) {
         toGet.push({
           safeKey: safePartialKey,
-          path: `${partial}.mustache`
+          path: `${partial}`
         });
       }
 

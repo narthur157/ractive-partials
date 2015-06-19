@@ -31,7 +31,7 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
         if (~partial.indexOf('/')) {
           toGet.push({
             safeKey: safePartialKey,
-            path: '' + partial + '.mustache'
+            path: '' + partial
           });
         }
 
