@@ -18,7 +18,7 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
   var findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
   function load(moduleName, require, done) {
-
+    console.log(moduleName);
     require(['text!' + moduleName + '.mustache'], function (text) {
 
       var toGet = [];
@@ -31,7 +31,7 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
         if (~partial.indexOf('/')) {
           toGet.push({
             safeKey: safePartialKey,
-            path: '' + partial
+            path: partial
           });
         }
 

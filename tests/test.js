@@ -1,7 +1,7 @@
 requirejs([
   'ractive',
-  'rapr!templates/view.mustache',
-  'rapr!templates/normalPartial.mustache'
+  'rapr!templates/view',
+  'rapr!templates/normalPartial'
 ], function (Ractive, view, normalPartial) {
 
   var instance = new Ractive({

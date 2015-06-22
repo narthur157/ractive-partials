@@ -5,7 +5,7 @@ import module from 'module';
 let findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
 export function load(moduleName, require, done) {
-
+  console.log(moduleName);
   require([`text!${moduleName}.mustache`], (text) => {
 
     let toGet = [];
@@ -18,7 +18,7 @@ export function load(moduleName, require, done) {
       if (~partial.indexOf('/')) {
         toGet.push({
           safeKey: safePartialKey,
-          path: `${partial}`
+          path: partial
         });
       }
 
