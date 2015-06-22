@@ -1,4 +1,5 @@
 // RequireJS common config
+// TODO: Use fewer relative paths
 require.config({
   baseUrl: '../bower_components',
   paths: {
@@ -7,7 +8,16 @@ require.config({
     ractive: 'ractive/ractive',
     rapr: '../dist/rapr',
     text: 'text/text',
-    templates: '../tests/templates',
     module: 'module/module'
+  },
+  config: {
+    '../dist/rapr': {
+      pathPrefix: '/tests/templates/'
+    }
+  },
+  map: {
+    '*': {
+      rapr: '../dist/rapr'
+    }
   }
 });

@@ -17,9 +17,18 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
   // Finds all '{{> partialName }}' in the template
   var findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
-  function load(moduleName, require, done) {
-    console.log(moduleName);
-    require(['text!' + moduleName + '.mustache'], function (text) {
+  function load(modulePath, require, done, config) {
+    // TODO: Support relative paths from '.'
+    var raprConfig = _module3['default'].config();
+    console.log(modulePath);
+
+    if (modulePath.charAt(0) != '/') {
+      if (raprConfig.pathPrefix) {
+        modulePath = '' + raprConfig.pathPrefix + '' + modulePath;
+      }
+    }
+    console.log(modulePath);
+    if (modulePath) require(['text!' + modulePath + '.mustache'], function (text) {
 
       var toGet = [];
 

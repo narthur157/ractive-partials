@@ -4,9 +4,19 @@ import module from 'module';
 // Finds all '{{> partialName }}' in the template
 let findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
-export function load(moduleName, require, done) {
-  console.log(moduleName);
-  require([`text!${moduleName}.mustache`], (text) => {
+export function load(modulePath, require, done, config) {
+  // TODO: Support relative paths from '.'
+  var raprConfig = module.config();
+  console.log(modulePath);
+
+  if (modulePath.charAt(0) != '/') {
+    if (raprConfig.pathPrefix) {
+      modulePath = `${raprConfig.pathPrefix}${modulePath}`;
+    }
+  }
+  console.log(modulePath);
+  if (modulePath)
+  require([`text!${modulePath}.mustache`], (text) => {
 
     let toGet = [];
 
