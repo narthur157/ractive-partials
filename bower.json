@@ -1,15 +1,15 @@
 {
-  "name": "rapr",
-  "version": "0.2.1",
-  "main": "rapr.js",
+  "name": "rapper",
+  "version": "0.2.2",
+  "main": "ractive-partials.js",
   "dependencies": {
     "ractive": "0.7.3",
-    "requirejs": "latest",
-    "requirejs-babel": "latest",
-    "text": "latest",
-    "module": "latest"
+    "requirejs": "2.1.18",
+    "requirejs-babel": "0.0.6",
+    "text": "2.0.14",
+    "module": "1.0.4"
   },
   "ignore": [
-    "/tests/"
+    "/samples/"
   ]
 }

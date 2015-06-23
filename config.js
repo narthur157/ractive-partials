@@ -6,18 +6,18 @@ require.config({
     es6: './requirejs-babel/es6',
     babel: './requirejs-babel/babel-4.6.6.min',
     ractive: 'ractive/ractive',
-    rapr: '../dist/rapr',
+    rapr: '../dist/ractive-partials',
     text: 'text/text',
     module: 'module/module'
   },
   config: {
-    '../dist/rapr': {
-      pathPrefix: '/tests/templates/'
+    '../dist/ractive-partials': {
+      pathPrefix: '/samples/templates/'
     }
   },
   map: {
     '*': {
-      rapr: '../dist/rapr'
+      'ractive-partials': '../dist/ractive-partials'
     }
   }
 });

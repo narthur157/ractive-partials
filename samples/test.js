@@ -1,7 +1,7 @@
 requirejs([
   'ractive',
-  'rapr!view',
-  'rapr!normalPartial'
+  'ractive-partials!view',
+  'ractive-partials!normalPartial'
 ], function (Ractive, view, normalPartial) {
 
   var instance = new Ractive({
@@ -10,11 +10,10 @@ requirejs([
       'normalPartial': normalPartial
     },
     data: {
-      x: "Hello World?",
-      y: "HELLO WORLD FROM AUTOMATICALLY RESOLVED PARTIAL",
-      z: 'Some data from a partial from root dir'
+      x: 'Some data in a template',
+      y: ' Data inside of an automatically resolved partial',
+      z: ' Data inside of a normal partial parsed by ractive-partials'
     },
     el: '#container'
   });
-  debugger;
 });
