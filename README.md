@@ -20,7 +20,7 @@ require(['originalTemplate', 'templates/long/path/to/your/parital'], function(or
 
 and in yourMustacheTemplate.mustache (.html currently not supported)
 
-{{>partial}}
+`{{>partial}}`
 
 You can instead do:
 
