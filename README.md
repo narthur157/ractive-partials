@@ -1,12 +1,14 @@
-Including every partial your templates might need is a pain.
+Including every partial your templates might from your ractive code need is a pain.
 
 That's why we use ractive-partials.
+-------------------------------
 
 
-Instead of
+Instead of doing this:
 
 in yourJavascriptFile.js:
 
+```
 require(['originalTemplate', 'templates/long/path/to/your/parital'], function(originalTemplate, partial) {
   var ractive = new Ractive({
     /* your options and such */
@@ -14,32 +16,38 @@ require(['originalTemplate', 'templates/long/path/to/your/parital'], function(or
   })
   ractive.partials['partial'] = partial;
 });
+```
 
 and in yourMustacheTemplate.mustache (.html currently not supported)
 
-{{>partial}}
+`{{>partial}}`
 
 You can instead do:
 
 in yourJavascriptFile.js:
 
+```
 require(['ractive-partials!originalTemplate'], function(originalTemplate) {
   var ractive = new Ractive({
     /* your options and such */
     template: originalTemplate,
   })
 });
+```
 
-{{>templates/long/path/to/your/partial}}
+in yourTemplate.mustache:
+
+`{{>templates/long/path/to/your/partial}}`
 
 This is great, because now we don't have to worry about updating your javascript every time your template changes! Yes!
 
-To build: babel --module amd rapr.js > dist/rapr.js
+-------------------------------
+
+To build: `babel --module amd rapr.js > dist/rapr.js`
 
 If you don't have babel: npm install -g babel
 
-
-Changelog:
+-------------------------------
 
 Test folder has been re-named to samples to better its contents.
 
