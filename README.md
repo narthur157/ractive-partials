@@ -1,4 +1,4 @@
-Including every partial your templates might from your ractive code need is a pain.
+Including every partial your templates want might from your ractive code need is a pain.
 
 That's why we use ractive-partials.
 -------------------------------
