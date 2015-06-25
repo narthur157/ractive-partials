@@ -24,7 +24,7 @@ export function load(modulePath, require, done) {
       var safePartialKey = partial.replace(/\//g, '$');
 
       // remember to grab partial
-      if (~partial.indexOf('/')) {
+      if (partial.indexOf('/') !== -1) {
         toGet.push({
           safeKey: safePartialKey,
           path: partial
