@@ -9,13 +9,9 @@ export function load(modulePath, require, done) {
   // TODO: Support relative paths from '.'
   var config = module.config();
 
-  // TODO: Support paths that don't use the prefix
-  if (modulePath.charAt(0) !== '/') {
-    if (config.pathPrefix) {
-      modulePath = `${config.pathPrefix}${modulePath}`;
-    }
+  if (config.pathPrefix) {
+    modulePath = `${config.pathPrefix}${modulePath}`;
   }
-
   text.get(`${modulePath}.mustache`, (text) => {
     let toGet = [];
 
@@ -36,15 +32,12 @@ export function load(modulePath, require, done) {
 
     let compiled = Ractive.parse(repartial);
     if (toGet.length) {
-      require(
-        toGet.map(({ path })  => `${module.id}!${path}`),
-        function(...parsed) {
-          toGet.forEach((partial, i) => {
-            Ractive.partials[partial.safeKey] = parsed[i];
-          });
-          done(compiled);
-        }
-      );
+      require(toGet.map(({ path })  => `${module.id}!${path}`), function(...parsed) {
+        toGet.forEach((partial, i) => {
+          Ractive.partials[partial.safeKey] = parsed[i];
+        });
+        done(compiled);
+      });
     }
     else {
       done(compiled);

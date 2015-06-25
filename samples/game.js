@@ -1,9 +1,9 @@
-requirejs([
+require([
+  '../config',
   'ractive',
   'ractive-partials!textDungeon',
   'ractive-partials!levels'
-], function (Ractive, view, lvls) {
-
+], function (config, Ractive, view, lvls) {
   var restaurants = [
     'Calexico',
     'Chipotle',
@@ -11,7 +11,7 @@ requirejs([
     "Hm..I don't really know"
   ];
   var instance = new Ractive({
-    template: function() { return view; },
+    template: view,
     data: {
       user: {
         items: ['A mysterious object'],
@@ -22,7 +22,7 @@ requirejs([
       started: false,
       levels: {
         one: {
-          'restaurants': restaurants,
+          restaurants: restaurants,
           current: false
         },
         two: {
@@ -45,6 +45,11 @@ requirejs([
       instance.set('gameText', 'You consider your options for so long that you perish. RIP.');
       instance.set('alive', false);
     }
+    else if (restaurant === restaurants[2]) {
+      instance.set('gameText',
+        'You eat your salad, but there are not enough calories and you starve anyways. RIP.');
+      instance.set('alive', false);
+    }
     else {
       instance.set('gameText', 'You eat, and feel ready for the rest of your day');
       instance.set('levels.one.current', false);
@@ -55,7 +60,7 @@ requirejs([
   });
   instance.on('levelComplete', function(event, level) {
     //TODO: why is level undefined
-    instance.set('user.level', level+1);
+    instance.set('user.level', level + 1);
   });
   instance.on('tar', function(event, correct) {
     if (correct) {

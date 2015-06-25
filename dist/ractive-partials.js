@@ -21,13 +21,9 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
     // TODO: Support relative paths from '.'
     var config = _module3['default'].config();
 
-    // TODO: Support paths that don't use the prefix
-    if (modulePath.charAt(0) !== '/') {
-      if (config.pathPrefix) {
-        modulePath = '' + config.pathPrefix + '' + modulePath;
-      }
+    if (config.pathPrefix) {
+      modulePath = '' + config.pathPrefix + '' + modulePath;
     }
-
     _text2['default'].get('' + modulePath + '.mustache', function (text) {
       var toGet = [];
 
@@ -36,7 +32,7 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
         var safePartialKey = partial.replace(/\//g, '$');
 
         // remember to grab partial
-        if (~partial.indexOf('/')) {
+        if (partial.indexOf('/') !== -1) {
           toGet.push({
             safeKey: safePartialKey,
             path: partial
