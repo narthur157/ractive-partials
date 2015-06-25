@@ -1,0 +1,10 @@
+  <p>It's lunch time, but you haven't even thought of where to eat yet</p>
+  <p>Where do you go to eat?</p>
+    <div>
+      {{#restaurants}}
+        <button on-click='eat:{{.}}'>{{.}}</button>
+      {{/restaurants}}
+    </div>
+  {{#complete}}
+    {{>levels/two}}
+  {{/complete}}

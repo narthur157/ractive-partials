@@ -1,5 +1,5 @@
 requirejs([
   '../config.js'
 ], function(config) {
-  requirejs(['test.js']);
+  requirejs(['game.js']);
 });

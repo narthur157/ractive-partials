@@ -1,0 +1,19 @@
+{{#started}}
+  {{gameText}}
+  {{#alive}}
+    {{>player/hud}}
+    {{>levels}}
+  {{/alive}}
+{{/started}}
+
+{{^started}}
+  <p>BEHANCE RACTIVE TEXT ADVENTURE</p>
+  <input type="text" placeholder="Your name, son?" value="{{user.name}}">
+
+  {{#user.name}}
+    <p>
+      {{user.name}}, {{gameText}}
+      <button on-click="startGame">Okay..I guess?</button>
+    </p>
+  {{/user.name}}
+{{/started}}

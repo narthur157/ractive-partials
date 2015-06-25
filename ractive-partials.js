@@ -5,51 +5,49 @@ import module from 'module';
 // Finds all '{{> partialName }}' in the template
 let findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
-export function load(modulePath, require, done, config) {
+export function load(modulePath, require, done) {
   // TODO: Support relative paths from '.'
-  var raprConfig = module.config();
+  var config = module.config();
 
   // TODO: Support paths that don't use the prefix
   if (modulePath.charAt(0) !== '/') {
-    if (raprConfig.pathPrefix) {
-      modulePath = `${raprConfig.pathPrefix}${modulePath}`;
+    if (config.pathPrefix) {
+      modulePath = `${config.pathPrefix}${modulePath}`;
     }
   }
 
-  if (modulePath) {
-    require([`text!${modulePath}.mustache`], (text) => {
+  text.get(`${modulePath}.mustache`, (text) => {
+    let toGet = [];
 
-      let toGet = [];
+    let repartial = text.replace(findPartial, function(match, partial) {
+      // replace slash with $
+      var safePartialKey = partial.replace(/\//g, '$');
 
-      let repartial = text.replace(findPartial, function(match, partial) {
-        // replace slash with $
-        var safePartialKey = partial.replace(/\//g, '$');
+      // remember to grab partial
+      if (~partial.indexOf('/')) {
+        toGet.push({
+          safeKey: safePartialKey,
+          path: partial
+        });
+      }
 
-        // remember to grab partial
-        if (~partial.indexOf('/')) {
-          toGet.push({
-            safeKey: safePartialKey,
-            path: partial
-          });
-        }
+      return `{{> ${safePartialKey} }}`;
+    });
 
-        return `{{> ${safePartialKey} }}`;
-      });
-
-      let compiled = Ractive.parse(repartial);
-      if (toGet.length) {
-        require(toGet.map(
-          partial => `${module.id}!${partial.path}`
-        ), function(...parsed) {
+    let compiled = Ractive.parse(repartial);
+    if (toGet.length) {
+      require(
+        toGet.map(({ path })  => `${module.id}!${path}`),
+        function(...parsed) {
           toGet.forEach((partial, i) => {
             Ractive.partials[partial.safeKey] = parsed[i];
           });
           done(compiled);
-        });
-      }
-      else {
-        done(compiled);
-      }
-    });
-  }
+        }
+      );
+    }
+    else {
+      done(compiled);
+    }
+  });
 }

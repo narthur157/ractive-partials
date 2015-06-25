@@ -1,0 +1,11 @@
+<div id='hud'>
+-----------------------------
+  <p> Name: {{ user.name }}</p>
+  <p> Level: {{ user.level }}</p>
+    <div id='inventory'> Your inventory:
+    {{#user.items:i}}
+      <p>{{ i+1 }}: {{ . }}</p>
+    {{/user.items}}
+    </div>
+-----------------------------
+</div>

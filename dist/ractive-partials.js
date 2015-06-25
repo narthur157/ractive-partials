@@ -17,56 +17,54 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
   // Finds all '{{> partialName }}' in the template
   var findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
-  function load(modulePath, require, done, config) {
+  function load(modulePath, require, done) {
     // TODO: Support relative paths from '.'
-    var raprConfig = _module3['default'].config();
+    var config = _module3['default'].config();
 
     // TODO: Support paths that don't use the prefix
     if (modulePath.charAt(0) !== '/') {
-      if (raprConfig.pathPrefix) {
-        modulePath = '' + raprConfig.pathPrefix + '' + modulePath;
+      if (config.pathPrefix) {
+        modulePath = '' + config.pathPrefix + '' + modulePath;
       }
     }
 
-    if (modulePath) {
-      require(['text!' + modulePath + '.mustache'], function (text) {
+    _text2['default'].get('' + modulePath + '.mustache', function (text) {
+      var toGet = [];
 
-        var toGet = [];
+      var repartial = text.replace(findPartial, function (match, partial) {
+        // replace slash with $
+        var safePartialKey = partial.replace(/\//g, '$');
 
-        var repartial = text.replace(findPartial, function (match, partial) {
-          // replace slash with $
-          var safePartialKey = partial.replace(/\//g, '$');
+        // remember to grab partial
+        if (~partial.indexOf('/')) {
+          toGet.push({
+            safeKey: safePartialKey,
+            path: partial
+          });
+        }
 
-          // remember to grab partial
-          if (~partial.indexOf('/')) {
-            toGet.push({
-              safeKey: safePartialKey,
-              path: partial
-            });
+        return '{{> ' + safePartialKey + ' }}';
+      });
+
+      var compiled = _Ractive['default'].parse(repartial);
+      if (toGet.length) {
+        require(toGet.map(function (_ref) {
+          var path = _ref.path;
+          return '' + _module3['default'].id + '!' + path;
+        }), function () {
+          for (var _len = arguments.length, parsed = Array(_len), _key = 0; _key < _len; _key++) {
+            parsed[_key] = arguments[_key];
           }
 
-          return '{{> ' + safePartialKey + ' }}';
-        });
-
-        var compiled = _Ractive['default'].parse(repartial);
-        if (toGet.length) {
-          require(toGet.map(function (partial) {
-            return '' + _module3['default'].id + '!' + partial.path;
-          }), function () {
-            for (var _len = arguments.length, parsed = Array(_len), _key = 0; _key < _len; _key++) {
-              parsed[_key] = arguments[_key];
-            }
-
-            toGet.forEach(function (partial, i) {
-              _Ractive['default'].partials[partial.safeKey] = parsed[i];
-            });
-            done(compiled);
+          toGet.forEach(function (partial, i) {
+            _Ractive['default'].partials[partial.safeKey] = parsed[i];
           });
-        } else {
           done(compiled);
-        }
-      });
-    }
+        });
+      } else {
+        done(compiled);
+      }
+    });
   }
 });
 
