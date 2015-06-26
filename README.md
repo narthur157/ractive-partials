@@ -1,4 +1,4 @@
-Including every partial your templates might from your ractive code need is a pain.
+Including every partial your templates want might from your ractive code need is a pain.
 
 That's why we use ractive-partials.
 -------------------------------
@@ -49,7 +49,17 @@ If you don't have babel: npm install -g babel
 
 -------------------------------
 
-Test folder has been re-named to samples to better its contents.
+The samples folder contains two samples using the plug-in, one of which is a short text adventure that was hacked together and the other is
+a basic test of functionality. You can switch between them by loading test.js instead of game.js and vice versa.
+
+As far as testing that the plug-in is not completely broken goes, loading either of these and checking the console for
+errors will make sure it works at least a little bit, though nothing beyond that.
+
+An easy way to run them is by running `python -m SimpleHTTPServer 8080` and then going to localhost:8080/samples
+Note that if you just go to index.html you will get cross-origin request errors.
+
+
+
 
 Some supported features
 

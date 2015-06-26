@@ -1,0 +1,67 @@
+{
+  "esnext": true,
+  "requireCurlyBraces": ["if", "else", "for", "while", "do"],
+  "requireSpaceAfterKeywords": ["if", "else", "for", "while", "do", "switch", "return"],
+
+  "disallowImplicitTypeConversion": ["string"],
+
+  "disallowKeywords": ["with"],
+  "requireKeywordsOnNewLine": ["else"],
+
+  "requireLineFeedAtFileEnd": true,
+  "disallowMultipleLineBreaks": true,
+  "validateLineBreaks": "LF",
+
+  "requireSpaceBeforeBinaryOperators": ["/", "*", "+", "-", "==", "===", "!=", "!==", ">", ">=", "<", "<=", "="],
+  "requireSpaceAfterBinaryOperators": ["/", "*", "+", "-", "==", "===", "!=", "!==", ">", ">=", "<", "<=", "=", ","],
+  "disallowSpaceBeforeBinaryOperators": [","],
+
+  "disallowSpaceAfterPrefixUnaryOperators": ["++", "--", "+", "-", "!", "~"],
+  "disallowSpaceBeforePostfixUnaryOperators": ["++", "--"],
+
+  "requireSpacesInConditionalExpression": true,
+
+  "disallowSpacesInsideParentheses": true,
+  "disallowSpacesInsideArrayBrackets": true,
+
+  "disallowSpaceAfterObjectKeys": true,
+  "disallowQuotedKeysInObjects": true,
+
+  "requireDotNotation": true,
+  "requireCommaBeforeLineBreak": true,
+  "disallowTrailingWhitespace": true,
+  "disallowMultipleLineStrings": true,
+  "disallowMixedSpacesAndTabs": true,
+  "disallowEmptyBlocks": true,
+
+  "requireCapitalizedConstructors": true,
+  "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+
+  "disallowSpacesInFunctionDeclaration": {
+    "beforeOpeningRoundBrace": true
+  },
+  "requireSpacesInFunctionDeclaration": {
+    "beforeOpeningCurlyBrace": true
+  },
+  "disallowSpacesInFunctionExpression": {
+    "beforeOpeningRoundBrace": true
+  },
+  "requireSpacesInFunctionExpression": {
+    "beforeOpeningCurlyBrace": true
+  },
+  "validateIndentation": 2,
+  "requireBlocksOnNewline": 1,
+  "disallowPaddingNewlinesInBlocks": true,
+  "disallowTrailingComma": true,
+
+  // ---------------------------
+  // bugs with es6
+  // particularly with template literals
+  // ---------------------------
+  "disallowSpacesInsideParentheses": null,
+  "disallowSpaceBeforeBinaryOperators": null,
+  "disallowSpacesInsideArrayBrackets": null,
+  // below: fixed but not release yet 2015-0204
+  "disallowSpacesInFunctionExpression": null,
+  "disallowSpaceAfterObjectKeys": null
+}

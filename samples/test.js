@@ -1,13 +1,12 @@
-requirejs([
+require([
   'ractive',
   'ractive-partials!view',
   'ractive-partials!normalPartial'
 ], function (Ractive, view, normalPartial) {
-
   var instance = new Ractive({
     template: function() { return view; },
     partials: {
-      'normalPartial': normalPartial
+      normalPartial: normalPartial
     },
     data: {
       x: 'Some data in a template',
