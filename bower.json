@@ -1,6 +1,6 @@
 {
-  "name": "rapper",
-  "version": "0.2.3",
+  "name": "ractive-partials",
+  "version": "0.2.4",
   "main": "ractive-partials.js",
   "dependencies": {
     "ractive": "0.7.3",

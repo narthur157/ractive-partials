@@ -9,7 +9,7 @@ export function load(modulePath, require, done) {
   const defaultDelim = '$';
   var config = module.config(),
       extension = config.fileExtension || 'mustache',
-      invalidDelims = "@#^&*()+<>\/\\|=;~`%.,{}[]";
+      invalidDelims = '@#^&*()+<>\/\\|=;~`%.,{}[]';
 
   if (config.pathPrefix) {
     modulePath = `${config.pathPrefix}${modulePath}`;
