@@ -18,8 +18,8 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
   var findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
   function load(modulePath, require, done) {
+    var defaultDelim = '$';
     var config = _module3['default'].config(),
-        delim = config.pathDelimeter || '$',
         extension = config.fileExtension || 'mustache',
         invalidDelims = '@#^&*()+<>/\\|=;~`%.,{}[]';
 
@@ -27,10 +27,7 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
       modulePath = '' + config.pathPrefix + '' + modulePath;
     }
 
-    if (modulePath.indexOf('.' + extension) !== -1) {
-      throw new Error('Module path must not contain file extension');
-    }
-
+    // if config.pathDelimeter is invalid, reset to default
     var _iteratorNormalCompletion = true;
     var _didIteratorError = false;
     var _iteratorError = undefined;
@@ -39,8 +36,10 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
       for (var _iterator = invalidDelims[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
         var letter = _step.value;
 
-        if (delim.indexOf(letter) !== -1) {
-          throw new Error('Path delimeter must not contain any of the following: ' + invalidDelims.split('').join(' '));
+        if (config.pathDelimeter.indexOf(letter) !== -1) {
+          console.warn('Invalid config.pathDelimeter value: ' + delim + ' replaced by ' + defaultDelim);
+          // changing config.pathDelimeter prevents from getting this warning multiple times
+          config.pathDelimeter = defaultDelim;
         }
       }
     } catch (err) {
@@ -57,6 +56,10 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
         }
       }
     }
+
+    var delim = config.pathDelimeter;
+    // prevent .mustache.mustache
+    modulePath.replace('.' + extension + '$', '');
 
     _text2['default'].get('' + modulePath + '.' + extension, function (text) {
       var toGet = [];

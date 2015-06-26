@@ -6,8 +6,8 @@ import module from 'module';
 let findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
 export function load(modulePath, require, done) {
+  const defaultDelim = '$';
   var config = module.config(),
-      delim = config.pathDelimeter || '$',
       extension = config.fileExtension || 'mustache',
       invalidDelims = "@#^&*()+<>\/\\|=;~`%.,{}[]";
 
@@ -15,15 +15,17 @@ export function load(modulePath, require, done) {
     modulePath = `${config.pathPrefix}${modulePath}`;
   }
 
-  if (modulePath.indexOf(`.${extension}`) !== -1) {
-    throw new Error('Module path must not contain file extension');
-  }
-
+  // if config.pathDelimeter is invalid, reset to default
   for (let letter of invalidDelims) {
-    if (delim.indexOf(letter) !== -1) {
-      throw new Error("Path delimeter must not contain any of the following: " + invalidDelims.split('').join(' '));
+    if (config.pathDelimeter.indexOf(letter) !== -1) {
+      console.warn(`Invalid config.pathDelimeter value: ${delim} replaced by ${defaultDelim}`);
+      // changing config.pathDelimeter prevents from getting this warning multiple times
+      config.pathDelimeter = defaultDelim;
     }
   }
+  var delim = config.pathDelimeter;
+  // prevent .mustache.mustache
+  modulePath.replace(`\.${extension}$`, '');
 
   text.get(`${modulePath}.${extension}`, (text) => {
     let toGet = [];
