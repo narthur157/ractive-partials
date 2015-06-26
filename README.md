@@ -56,7 +56,7 @@ As far as testing that the plug-in is not completely broken goes, loading either
 errors will make sure it works at least a little bit, though nothing beyond that.
 
 An easy way to run them is by running `python -m SimpleHTTPServer 8080` and then going to localhost:8080/samples
-Note that if you just go to index.html you will get cross-origin request errors.
+Note that if you just go to index.html in your filesystem you will get cross-origin request errors.
 
 
 
@@ -64,9 +64,9 @@ Note that if you just go to index.html you will get cross-origin request errors.
 Some supported features
 
   - pathPrefix config option as used in this project's config.js which can prefix all paths
-  - more to come
+  - pathDelimeter config option to change the replacement character from '$' to another valid character or string
+  - fileExtension config option, to tell ractive-partials what file extension to look for on templates
 
 This plugin is currently missing a number of features including but certainly not limited to:
 
-  - Support for template paths other than the one given by pathPrefix or from root
   - An implementation of requirejs's write method
