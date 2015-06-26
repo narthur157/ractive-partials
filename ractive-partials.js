@@ -25,7 +25,7 @@ export function load(modulePath, require, done) {
 
     let repartial = text.replace(findPartial, function(match, partial) {
       // replace slash with $
-      var safePartialKey = partial.replace(/\//g, delim);
+      const safePartialKey = partial.replace(/\//g, delim);
 
       // remember to grab partial
       if (partial.indexOf('/') !== -1) {
