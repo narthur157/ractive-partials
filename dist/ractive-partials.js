@@ -19,10 +19,9 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
 
   function load(modulePath, require, done) {
     var defaultDelim = '$';
-    var config = _module3['default'].config(),
-        delim = config.pathDelimeter || '$',
-        extension = config.fileExtension || 'mustache',
-        invalidDelims = '@#^&*()+<>/\\|=;~`%.,{}[]';
+    var config = _module3['default'].config();
+    var delim = config.pathDelimeter || '$';
+    var extension = config.fileExtension || 'mustache';
 
     if (config.pathPrefix) {
       modulePath = '' + config.pathPrefix + '' + modulePath;

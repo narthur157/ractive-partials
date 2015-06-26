@@ -7,10 +7,9 @@ let findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
 export function load(modulePath, require, done) {
   const defaultDelim = '$';
-  var config = module.config(),
-      delim = config.pathDelimeter || '$',
-      extension = config.fileExtension || 'mustache',
-      invalidDelims = '@#^&*()+<>\/\\|=;~`%.,{}[]';
+  const config = module.config();
+  const delim = config.pathDelimeter || '$';
+  const extension = config.fileExtension || 'mustache';
 
   if (config.pathPrefix) {
     modulePath = `${config.pathPrefix}${modulePath}`;
