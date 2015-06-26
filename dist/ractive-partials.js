@@ -18,7 +18,6 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
   var findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
   function load(modulePath, require, done) {
-    var defaultDelim = '$';
     var config = _module3['default'].config();
     var delim = config.pathDelimeter || '$';
     var extension = config.fileExtension || 'mustache';
@@ -28,9 +27,10 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
     }
 
     // prevent .mustache.mustache
-    modulePath.replace('.' + extension + '$', '');
+    var extensionCheck = new RegExp('.' + extension + '$');
+    modulePath = extensionCheck.test(modulePath) ? modulePath : '' + modulePath + '.' + extension;
 
-    _text2['default'].get('' + modulePath + '.' + extension, function (text) {
+    _text2['default'].get(modulePath, function (text) {
       var toGet = [];
 
       var repartial = text.replace(findPartial, function (match, partial) {

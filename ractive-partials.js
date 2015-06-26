@@ -6,7 +6,6 @@ import module from 'module';
 let findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
 export function load(modulePath, require, done) {
-  const defaultDelim = '$';
   const config = module.config();
   const delim = config.pathDelimeter || '$';
   const extension = config.fileExtension || 'mustache';
@@ -16,9 +15,12 @@ export function load(modulePath, require, done) {
   }
 
   // prevent .mustache.mustache
-  modulePath.replace(`\.${extension}$`, '');
+  const extensionCheck = new RegExp(`\.${extension}$`);
+  modulePath = extensionCheck.test(modulePath) ?
+    modulePath :
+    `${modulePath}.${extension}`;
 
-  text.get(`${modulePath}.${extension}`, (text) => {
+  text.get(modulePath, (text) => {
     let toGet = [];
 
     let repartial = text.replace(findPartial, function(match, partial) {
