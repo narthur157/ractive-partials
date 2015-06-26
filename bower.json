@@ -1,13 +1,12 @@
 {
-  "name": "rapper",
-  "version": "0.2.3",
+  "name": "ractive-partials",
+  "version": "0.2.4",
   "main": "ractive-partials.js",
   "dependencies": {
-    "ractive": "0.7.3",
-    "requirejs": "2.1.18",
-    "requirejs-babel": "0.0.6",
-    "text": "2.0.14",
-    "module": "1.0.4"
+    "requirejs": "~2.1.18",
+    "ractive": "~0.7.3",
+    "text": "~2.0.14",
+    "module": "~1.0.4"
   },
   "ignore": [
     "/samples/"

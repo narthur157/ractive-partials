@@ -18,18 +18,24 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
   var findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
   function load(modulePath, require, done) {
-    // TODO: Support relative paths from '.'
     var config = _module3['default'].config();
+    var delim = config.pathDelimeter || '$';
+    var extension = config.fileExtension || 'mustache';
 
     if (config.pathPrefix) {
       modulePath = '' + config.pathPrefix + '' + modulePath;
     }
-    _text2['default'].get('' + modulePath + '.mustache', function (text) {
+
+    // prevent .mustache.mustache
+    var extensionCheck = new RegExp('.' + extension + '$');
+    modulePath = extensionCheck.test(modulePath) ? modulePath : '' + modulePath + '.' + extension;
+
+    _text2['default'].get(modulePath, function (text) {
       var toGet = [];
 
       var repartial = text.replace(findPartial, function (match, partial) {
         // replace slash with $
-        var safePartialKey = partial.replace(/\//g, '$');
+        var safePartialKey = partial.replace(/\//g, delim);
 
         // remember to grab partial
         if (partial.indexOf('/') !== -1) {
