@@ -6,18 +6,31 @@ import module from 'module';
 let findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
 export function load(modulePath, require, done) {
-  // TODO: Support relative paths from '.'
-  var config = module.config();
+  var config = module.config(),
+      delim = config.pathDelimeter || '$',
+      extension = config.fileExtension || 'mustache',
+      invalidDelims = "@#^&*()+<>\/\\|=;~`%.,{}[]";
 
   if (config.pathPrefix) {
     modulePath = `${config.pathPrefix}${modulePath}`;
   }
-  text.get(`${modulePath}.mustache`, (text) => {
+
+  if (modulePath.indexOf(`.${extension}`) !== -1) {
+    throw new Error('Module path must not contain file extension');
+  }
+
+  for (let letter of invalidDelims) {
+    if (delim.indexOf(letter) !== -1) {
+      throw new Error("Path delimeter must not contain any of the following: " + invalidDelims.split('').join(' '));
+    }
+  }
+
+  text.get(`${modulePath}.${extension}`, (text) => {
     let toGet = [];
 
     let repartial = text.replace(findPartial, function(match, partial) {
       // replace slash with $
-      var safePartialKey = partial.replace(/\//g, '$');
+      var safePartialKey = partial.replace(/\//g, delim);
 
       // remember to grab partial
       if (partial.indexOf('/') !== -1) {

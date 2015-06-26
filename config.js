@@ -10,7 +10,9 @@ require.config({
   },
   config: {
     '../dist/ractive-partials': {
-      pathPrefix: '/samples/templates/'
+      pathPrefix: '/samples/templates/',
+      pathDelimeter: '$',
+      fileExtension: 'mustache'
     }
   },
   map: {

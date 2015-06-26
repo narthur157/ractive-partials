@@ -18,18 +18,52 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
   var findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 
   function load(modulePath, require, done) {
-    // TODO: Support relative paths from '.'
-    var config = _module3['default'].config();
+    var config = _module3['default'].config(),
+        delim = config.pathDelimeter || '$',
+        extension = config.fileExtension || 'mustache',
+        invalidDelims = '@#^&*()+<>/\\|=;~`%.,{}[]';
 
     if (config.pathPrefix) {
       modulePath = '' + config.pathPrefix + '' + modulePath;
     }
-    _text2['default'].get('' + modulePath + '.mustache', function (text) {
+
+    if (modulePath.indexOf('.' + extension) !== -1) {
+      throw new Error('Module path must not contain file extension');
+    }
+
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = invalidDelims[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var letter = _step.value;
+
+        if (delim.indexOf(letter) !== -1) {
+          throw new Error('Path delimeter must not contain any of the following: ' + invalidDelims.split('').join(' '));
+        }
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator['return']) {
+          _iterator['return']();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+
+    _text2['default'].get('' + modulePath + '.' + extension, function (text) {
       var toGet = [];
 
       var repartial = text.replace(findPartial, function (match, partial) {
         // replace slash with $
-        var safePartialKey = partial.replace(/\//g, '$');
+        var safePartialKey = partial.replace(/\//g, delim);
 
         // remember to grab partial
         if (partial.indexOf('/') !== -1) {
