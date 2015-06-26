@@ -21,16 +21,13 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
     var config = _module3['default'].config();
     var delim = config.pathDelimeter || '$';
     var extension = config.fileExtension || 'mustache';
-
-    if (config.pathPrefix) {
-      modulePath = '' + config.pathPrefix + '' + modulePath;
-    }
+    var prefix = config.pathPrefix || '';
 
     // prevent .mustache.mustache
     var extensionCheck = new RegExp('.' + extension + '$');
     modulePath = extensionCheck.test(modulePath) ? modulePath : '' + modulePath + '.' + extension;
 
-    _text2['default'].get(modulePath, function (text) {
+    _text2['default'].get(require.toUrl(modulePath), function (text) {
       var toGet = [];
 
       var repartial = text.replace(findPartial, function (match, partial) {
@@ -52,7 +49,7 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
       if (toGet.length) {
         require(toGet.map(function (_ref) {
           var path = _ref.path;
-          return '' + _module3['default'].id + '!' + path;
+          return '' + _module3['default'].id + '!' + prefix + '' + path;
         }), function () {
           for (var _len = arguments.length, parsed = Array(_len), _key = 0; _key < _len; _key++) {
             parsed[_key] = arguments[_key];

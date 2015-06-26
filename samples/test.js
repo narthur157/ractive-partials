@@ -1,7 +1,7 @@
 require([
   'ractive',
-  'ractive-partials!view',
-  'ractive-partials!normalPartial'
+  'rap!templates/view',
+  'rap!templates/normalPartial'
 ], function (Ractive, view, normalPartial) {
   var instance = new Ractive({
     template: function() { return view; },
