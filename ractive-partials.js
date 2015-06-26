@@ -8,6 +8,7 @@ let findPartial = /{{>\s?([^\s]+)\s?}}/gi;
 export function load(modulePath, require, done) {
   const defaultDelim = '$';
   var config = module.config(),
+      delim = config.pathDelimeter || '$',
       extension = config.fileExtension || 'mustache',
       invalidDelims = '@#^&*()+<>\/\\|=;~`%.,{}[]';
 
@@ -15,15 +16,6 @@ export function load(modulePath, require, done) {
     modulePath = `${config.pathPrefix}${modulePath}`;
   }
 
-  // if config.pathDelimeter is invalid, reset to default
-  for (let letter of invalidDelims) {
-    if (config.pathDelimeter.indexOf(letter) !== -1) {
-      console.warn(`Invalid config.pathDelimeter value: ${delim} replaced by ${defaultDelim}`);
-      // changing config.pathDelimeter prevents from getting this warning multiple times
-      config.pathDelimeter = defaultDelim;
-    }
-  }
-  var delim = config.pathDelimeter;
   // prevent .mustache.mustache
   modulePath.replace(`\.${extension}$`, '');
 
