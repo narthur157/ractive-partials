@@ -1,15 +1,18 @@
 {
   "name": "ractive-partials",
-  "version": "0.2.4",
+  "version": "0.2.6",
   "main": "ractive-partials.js",
   "dependencies": {
     "requirejs": "~2.1.18",
     "ractive": "~0.7.3",
-    "text": "~2.0.14",
     "module": "~1.0.4"
   },
   "ignore": [
-    "/samples/"
+    "samples/",
+    "src/",
+    ".*",
+    "*.json",
+    "*.md"
   ],
   "devDependencies": {
     "jasmine": "~2.3.4"

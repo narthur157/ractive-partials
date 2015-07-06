@@ -18,7 +18,7 @@ require.config({
   },
   map: {
     '*': {
-      'rap': '../dist/ractive-partials'
+      rap: '../dist/ractive-partials'
     }
   }
 });

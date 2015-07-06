@@ -66,4 +66,3 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
     });
   }
 });
-
