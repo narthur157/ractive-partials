@@ -1,6 +1,6 @@
 {
   "name": "ractive-partials",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "main": "ractive-partials.js",
   "dependencies": {
     "requirejs": "~2.1.18",
