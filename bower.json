@@ -8,12 +8,11 @@
     "module": "~1.0.4"
   },
   "ignore": [
-    "/samples/",
+    "samples/",
+    "src/"
     ".*",
     "*.json",
     "*.md",
-    "ractive-partials.js",
-    "config.js"
   ],
   "devDependencies": {
     "jasmine": "~2.3.4"
