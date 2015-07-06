@@ -1,6 +1,6 @@
 {
   "name": "ractive-partials",
   "scripts": {
-    "build": "babel --modules amd ./src/ractive-partials.js > dist/ractive-partials.js"
+    "build": "babel --modules amd ./src/ractive-partials.js -o dist/ractive-partials.js"
   }
 }
