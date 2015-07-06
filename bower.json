@@ -9,10 +9,10 @@
   },
   "ignore": [
     "samples/",
-    "src/"
+    "src/",
     ".*",
     "*.json",
-    "*.md",
+    "*.md"
   ],
   "devDependencies": {
     "jasmine": "~2.3.4"
