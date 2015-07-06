@@ -9,10 +9,7 @@ export function load(modulePath, require, done) {
   const config = module.config();
   const delim = config.pathDelimeter || '$';
   const extension = config.fileExtension || 'mustache';
-
-  if (config.pathPrefix) {
-    modulePath = `${config.pathPrefix}${modulePath}`;
-  }
+  const prefix = config.pathPrefix || '';
 
   // prevent .mustache.mustache
   const extensionCheck = new RegExp(`\.${extension}$`);
@@ -20,7 +17,7 @@ export function load(modulePath, require, done) {
     modulePath :
     `${modulePath}.${extension}`;
 
-  text.get(modulePath, (text) => {
+  text.get(require.toUrl(modulePath), (text) => {
     let toGet = [];
 
     let repartial = text.replace(findPartial, function(match, partial) {
@@ -40,7 +37,7 @@ export function load(modulePath, require, done) {
 
     let compiled = Ractive.parse(repartial);
     if (toGet.length) {
-      require(toGet.map(({ path })  => `${module.id}!${path}`), function(...parsed) {
+      require(toGet.map(({ path })  => `${module.id}!${prefix}${path}`), function(...parsed) {
         toGet.forEach((partial, i) => {
           Ractive.partials[partial.safeKey] = parsed[i];
         });

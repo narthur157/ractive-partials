@@ -1,8 +1,8 @@
 require([
   '../config',
   'ractive',
-  'ractive-partials!textDungeon',
-  'ractive-partials!levels'
+  'rap!templates/textDungeon',
+  'rap!templates/levels'
 ], function (config, Ractive, view, lvls) {
   var restaurants = [
     'Calexico',

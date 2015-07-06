@@ -10,5 +10,8 @@
   },
   "ignore": [
     "/samples/"
-  ]
+  ],
+  "devDependencies": {
+    "jasmine": "~2.3.4"
+  }
 }

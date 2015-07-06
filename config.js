@@ -6,7 +6,8 @@ require.config({
     ractive: 'ractive/ractive',
     rapr: '../dist/ractive-partials',
     text: 'text/text',
-    module: 'module/module'
+    module: 'module/module',
+    templates: '../samples/templates'
   },
   config: {
     '../dist/ractive-partials': {
@@ -17,7 +18,7 @@ require.config({
   },
   map: {
     '*': {
-      'ractive-partials': '../dist/ractive-partials'
+      'rap': '../dist/ractive-partials'
     }
   }
 });
