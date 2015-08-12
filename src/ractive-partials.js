@@ -3,7 +3,7 @@ import text from './text';
 import module from 'module';
 
 // Finds all '{{> partialName }}' in the template
-let findPartial = /{{>\s?([^\s]+)\s?}}/gi;
+let findPartial = /{{>\s?([^\s]+?)\s?}}/gi;
 
 export function load(modulePath, require, done) {
   const config = module.config();
