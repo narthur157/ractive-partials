@@ -15,7 +15,7 @@ define(['exports', 'ractive', './text', 'module'], function (exports, _ractive, 
   var _module3 = _interopRequireDefault(_module2);
 
   // Finds all '{{> partialName }}' in the template
-  var findPartial = /{{>\s?([^\s]+)\s?}}/gi;
+  var findPartial = /{{>\s?([^\s]+?)\s?}}/gi;
 
   function load(modulePath, require, done) {
     var config = _module3['default'].config();
